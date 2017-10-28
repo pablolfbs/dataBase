@@ -1,0 +1,127 @@
+
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class TelaDeCadastro {
+
+	JLabel labelTelaDeCadastro;
+
+	JLabel labelCodigo, labelNome, labelQuantidade;
+
+	JTextField campoCodigo, campoNome, campoQuantidade;
+
+	JButton botaoCadastrar;
+
+	TelaDeCadastro(Container tela) {
+
+		tela.removeAll();
+
+		labelTelaDeCadastro = new JLabel("TELA DE CADASTRO");
+		labelTelaDeCadastro.setBounds(200, 80, 180, 25);
+
+		tela.add(labelTelaDeCadastro);
+
+		labelCodigo = new JLabel("Código");
+		labelCodigo.setBounds(180, 115, 120, 20);
+
+		tela.add(labelCodigo);
+
+		labelNome = new JLabel("Nome");
+		labelNome.setBounds(180, 140, 120, 20);
+
+		tela.add(labelNome);
+
+		labelQuantidade = new JLabel("Quantidade");
+		labelQuantidade.setBounds(180, 165, 120, 20);
+
+		tela.add(labelQuantidade);
+
+		campoCodigo = new JTextField();
+		campoCodigo.setBounds(280, 115, 120, 20);
+		campoCodigo.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				try {
+					int x = Integer.parseInt(campoCodigo.getText() + e.getKeyChar());
+				} catch (Exception ex) {
+					e.consume();
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+
+		tela.add(campoCodigo);
+
+		campoNome = new JTextField();
+		campoNome.setBounds(280, 140, 120, 20);
+
+		tela.add(campoNome);
+
+		campoQuantidade = new JTextField();
+		campoQuantidade.setBounds(280, 165, 120, 20);
+		campoQuantidade.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				int x;
+				try {
+					x = Integer.parseInt(campoCodigo.getText() + e.getKeyChar());
+				} catch (Exception ex) {
+					e.consume();
+				}
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+
+		tela.add(campoQuantidade);
+
+		botaoCadastrar = new JButton("CADASTRAR");
+		botaoCadastrar.setBounds(280, 190, 120, 20);
+		botaoCadastrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				Produto produto;
+				produto = new Produto();
+
+				produto.codigo = Integer.parseInt(campoCodigo.getText());
+				produto.nome = campoNome.getText();
+				produto.quantidade = Integer.parseInt(campoQuantidade.getText());
+
+				produto.cadastrar();
+
+				produto.desconectar();
+
+				// JOptionPane.showMessageDialog(null, "OK");
+			}
+		});
+
+		tela.add(botaoCadastrar);
+
+		tela.repaint();
+
+	}
+
+}
